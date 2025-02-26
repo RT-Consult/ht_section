@@ -394,6 +394,7 @@ def calculator():
             fig_temp, ax_temp = plt.subplots()  # Criar uma nova figura para o gráfico de temperatura
             
             # Novos rótulos para os pontos
+            # Access nx, ny, nz from the function's return
             point_labels = {
                 (0, 0): 'Flange Surface',
                 (int(nz/2), int(ny/2)): 'Flange Middle',
@@ -415,6 +416,9 @@ def calculator():
             st.session_state['pontos'] = pontos
             st.session_state['start_temp'] = start_temp
             st.session_state['end_temp'] = end_temp
+            st.session_state['nx'] = nx  # Store nx in session state
+            st.session_state['ny'] = ny  # Store ny in session state
+            st.session_state['nz'] = nz  # Store nz in session state
 
         except Exception as e:
             st.error(f"Error during calculation: {e}")
@@ -436,12 +440,15 @@ def calculator():
 
     # Cálculo da taxa de resfriamento
     st.subheader("Cooling Rate Calculation")
-    if 'tempos' in st.session_state and 'temperaturas' in st.session_state and 'pontos' in st.session_state:
+    if 'tempos' in st.session_state and 'temperaturas' in st.session_state and 'pontos' in st.session_state and 'nx' in st.session_state and 'ny' in st.session_state and 'nz' in st.session_state:
         tempos = st.session_state['tempos']
         temperaturas = st.session_state['temperaturas']
         pontos = st.session_state['pontos']
         start_temp = st.session_state['start_temp']
         end_temp = st.session_state['end_temp']
+        nx = st.session_state['nx']  # Retrieve nx from session state
+        ny = st.session_state['ny']  # Retrieve ny from session state
+        nz = st.session_state['nz']  # Retrieve nz from session state
 
         # Rótulos para os pontos
         point_labels_cooling = {
