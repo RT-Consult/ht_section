@@ -455,7 +455,7 @@ def calculator():
         # Rótulos para os pontos
         point_labels_cooling = {
             (0, 0): 'Flange Surface',
-            (int(nz/2), int(ny/2)): 'Flange Middle',
+            (int(nz/2), int(2*ny/3)): 'Flange Middle',
             (int(nx-1), 0): 'Web Middle'
         }
 
