@@ -56,7 +56,7 @@ def l_shaped_temp_variable_properties(t_final, len_x, len_y, len_w, len_z, delta
     t_prev = np.copy(t)
 
     # Pontos para monitorar a temperatura
-    pontos = [(0, 0), (int(nz/2), int(ny/2)), (int(nx-1) , 0)]
+    pontos = [(0, 0), (int(nz/2), int(2*ny/3)), (int(nx-1) , 0)]
     temperaturas = {p: [] for p in pontos}
 
     # Lista para armazenar os campos de temperatura para a animação
@@ -204,23 +204,23 @@ def login():
 
     if st.button("Entrar"):
         # Simulação de autenticação (substitua por um sistema real)
-        if username == "roberto.tiburcio" and password == "canito":
+        if username == "roberto.tiburcio" and password == "rtf2679":
             st.session_state['authentication_status'] = True
             st.session_state['username'] = username
             st.success("Login sucessful! Please select calculator from the menu.")
-        elif username == "vinicius.ottani" and password == "cardoso":
+        elif username == "vinicius.ottani" and password == "vco4285":
             st.session_state['authentication_status'] = True
             st.session_state['username'] = username
             st.success("Login sucessful! Please select calculator from the menu.")
-        elif username == "marcelo.rebellato" and password == "arantes":
+        elif username == "marcelo.rebellato" and password == "mar4928":
             st.session_state['authentication_status'] = True
             st.session_state['username'] = username
             st.success("Login sucessful! Please select calculator from the menu.")
-        elif username == "antonio.gorni" and password == "augusto":
+        elif username == "antonio.gorni" and password == "aag1958":
             st.session_state['authentication_status'] = True
             st.session_state['username'] = username
             st.success("Login sucessful! Please select calculator from the menu.")
-        elif username == "jose.bacalhau" and password == "britti":
+        elif username == "jose.bacalhau" and password == "jbb1985":
             st.session_state['authentication_status'] = True
             st.session_state['username'] = username
             st.success("Login sucessful! Please select calculator from the menu.")
@@ -232,8 +232,10 @@ def login():
 def calculator():
     st.title("H-Beam Heat Transfer Calculator")
 
+    st.image("h-beam_dimensions_complete.png", use_container_width=True)
+
     # Opção de entrada de dados
-    data_option = st.radio("Select data input type:", ("Typing", "Upload CSV File"))
+    data_option = st.radio("Select data input type:", ("Typing", "Upload CSV File (in construction)"))
 
     # Inicializar dicionários para os dados
     input_data = {}
@@ -252,20 +254,20 @@ def calculator():
 
         # Dados de propriedades variáveis (listas de números)
         st.write("Thermal Conductivity (ks_data):")
-        input_data['ks_temperatures'] = [float(x) for x in st.text_input("Temperatures (°C), separated by comma", value="20, 600, 650, 700, 750, 800, 850, 900, 950, 1000, 1050, 1075", key="ks_temperatures").split(",")]
-        input_data['ks_values'] = [float(x) for x in st.text_input("Values (W/m.K), separated by comma", value="37, 36.5, 34.5, 32.6, 30.7, 29.0, 25.8, 26.2, 26.8, 27.4, 28.1, 28.4", key="ks_values").split(",")]
+        input_data['ks_temperatures'] = [float(x) for x in st.text_input("Temperatures (°C), Comma Separated", value="20, 600, 650, 700, 750, 800, 850, 900, 950, 1000, 1050, 1075", key="ks_temperatures").split(",")]
+        input_data['ks_values'] = [float(x) for x in st.text_input("Values (W/m.K), Comma Separated", value="37, 36.5, 34.5, 32.6, 30.7, 29.0, 25.8, 26.2, 26.8, 27.4, 28.1, 28.4", key="ks_values").split(",")]
 
         st.write("Specific Heat (cs_data):")
-        input_data['cs_temperatures'] = [float(x) for x in st.text_input("Temperatures (°C), separated by comma", value="20, 600, 650, 700, 750, 775, 800, 850, 900, 950, 1000, 1050, 1075", key="cs_temperatures").split(",")]
-        input_data['cs_values'] = [float(x) for x in st.text_input( "Values (J/kg.K), separated by comma", value="770, 765, 824, 892, 971, 1014, 645, 647, 648, 650, 651, 653, 655", key="cs_values").split(",")]
+        input_data['cs_temperatures'] = [float(x) for x in st.text_input("Temperatures (°C), Comma Separated", value="20, 600, 650, 700, 750, 775, 800, 850, 900, 950, 1000, 1050, 1075", key="cs_temperatures").split(",")]
+        input_data['cs_values'] = [float(x) for x in st.text_input( "Values (J/kg.K), Comma Separated", value="770, 765, 824, 892, 971, 1014, 645, 647, 648, 650, 651, 653, 655", key="cs_values").split(",")]
 
         st.write("Density (ds_data):")
-        input_data['ds_temperatures'] = [float(x) for x in st.text_input("Temperatures (°C), separated by comma", value="20, 600, 1300", key="ds_temperatures").split(",")]
-        input_data['ds_values'] = [float(x) for x in st.text_input( "Values (kg/m3), separated by comma", value="7850, 7800, 7332", key="ds_values").split(",")]
+        input_data['ds_temperatures'] = [float(x) for x in st.text_input("Temperatures (°C), Comma Separated", value="20, 600, 1300", key="ds_temperatures").split(",")]
+        input_data['ds_values'] = [float(x) for x in st.text_input( "Values (kg/m3), Comma Separated", value="7850, 7800, 7332", key="ds_values").split(",")]
 
         st.write("Global Heat Transfer Coeffincient (hg_data):")
-        input_data['hg_temperatures'] = [float(x) for x in st.text_input("Temperatures (°C), separated by comma", value="20, 700, 750, 800, 850, 900, 950, 1000, 1050, 1100, 1150, 1200", key="hg_temperatures").split(",")]
-        input_data['hg_values'] = [float(x) for x in st.text_input( "Values (W/m^2.K), separated by comma", value="15, 64, 72, 80, 89, 98, 108, 120, 132, 145, 158, 173", key="hg_values").split(",")]
+        input_data['hg_temperatures'] = [float(x) for x in st.text_input("Temperatures (°C), Comma Separated", value="20, 700, 750, 800, 850, 900, 950, 1000, 1050, 1100, 1150, 1200", key="hg_temperatures").split(",")]
+        input_data['hg_values'] = [float(x) for x in st.text_input( "Values (W/m^2.K), Comma Separated", value="15, 64, 72, 80, 89, 98, 108, 120, 132, 145, 158, 173", key="hg_values").split(",")]
 
         st.write("Temperatures for calculating the cooling rate (°C):")
         start_temp = st.number_input("Initial temperature for calculating the cooling rate (°C)", value=800.0)
@@ -330,12 +332,12 @@ def calculator():
             )
 
             # Definir os limites da escala de temperatura
-            vmin = 600
+            vmin = 550
                 #min(input_data['ks_temperatures']), min(input_data['cs_temperatures']),min(input_data['ds_temperatures']),min(input_data['hg_temperatures']))  # Temperatura mínima
             vmax = t_initial  # Temperatura máxima
 
             # Intervalo de tempo para salvar a animação (em segundos)
-            animation_interval = 10
+            animation_interval = 20
 
             # Criar uma nova lista com os campos de temperatura a cada 'animation_interval' segundos
             sampled_temperature_fields = temperature_fields[::animation_interval]
@@ -397,7 +399,7 @@ def calculator():
             # Access nx, ny, nz from the function's return
             point_labels = {
                 (0, 0): 'Flange Surface',
-                (int(nz/2), int(ny/2)): 'Flange Middle',
+                (int(nz/2), int(2*ny/3)): 'Flange Middle',
                 (int(nx-1) , 0): 'Web Middle'
             }
 
